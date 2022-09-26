@@ -14,7 +14,8 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
-
+    // mysql の他に sqlite, pgsql, sqlsrv が選べる
+    // ここで使用するデータベースを選択する
     'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
@@ -36,9 +37,13 @@ return [
     'connections' => [
 
         'sqlite' => [
+            // ドライバー名の指定
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
+            // 使用するデータベース名
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            // データベースの名前の前につける文字列の指定
+            // 問題なければこのままでok
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
@@ -46,17 +51,27 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
+            // データベースサーバーのホストの指定(IPアドレスまたはドメイン)
             'host' => env('DB_HOST', '127.0.0.1'),
+            // 使用ポートの指定
             'port' => env('DB_PORT', '3306'),
+            // 使用するデータベース名。
+            // SQLiteではデータベースのファイル名、MySQLなどではサーバーに用意されているデータベース名
             'database' => env('DB_DATABASE', 'forge'),
+            // データベースにアクセスする際に使用するユーザー名
             'username' => env('DB_USERNAME', 'forge'),
+            // データベースにアクセスする際に使用するパスワード
             'password' => env('DB_PASSWORD', ''),
+            // MySQLのみ設定。使用するソケットファイルを指定。
             'unix_socket' => env('DB_SOCKET', ''),
+            // キャラクタエンコーディングの指定
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
+            // MySQL用の設定。ストリクトモードのon/offの指定。
             'strict' => true,
+            // MySQL用の設定。使用するストレージエンジンの指定
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -123,7 +138,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
