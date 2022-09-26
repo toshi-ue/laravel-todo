@@ -57,6 +57,7 @@ return [
             'port' => env('DB_PORT', '3306'),
             // 使用するデータベース名。
             // SQLiteではデータベースのファイル名、MySQLなどではサーバーに用意されているデータベース名
+            // [Laravel5：forgeの意味・役割について](https://teratail.com/questions/205974)
             'database' => env('DB_DATABASE', 'forge'),
             // データベースにアクセスする際に使用するユーザー名
             'username' => env('DB_USERNAME', 'forge'),
