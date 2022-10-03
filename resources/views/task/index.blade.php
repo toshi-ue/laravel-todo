@@ -5,6 +5,8 @@
     <h1>TODOリスト</h1>
 </div>
 <div class="contents">
+    {{-- TODO: components.flash_message --}}
+    @include('layouts.flash_message')
     {{-- TODO: Task入力フォーム --}}
     <form action="{{ route('task.store') }}" method="post">
         @csrf
