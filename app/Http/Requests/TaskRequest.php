@@ -13,7 +13,11 @@ class TaskRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if ($this->path() == 'task') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -24,7 +28,7 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'description' => 'required'
         ];
     }
 }
