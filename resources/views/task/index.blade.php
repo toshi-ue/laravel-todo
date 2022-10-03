@@ -6,6 +6,18 @@
 </div>
 <div class="contents">
     {{-- TODO: Task入力フォーム --}}
+    <form action="{{ route('task.store') }}" method="post">
+        @csrf
+        <table>
+            <tr>
+                <th>description</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="description" value="{{ old('description') }}"></td>
+                <td><input type="submit" value="登録"></td>
+            </tr>
+        </table>
+    </form>
     {{-- TODO: done(true, false のよこならび表示) --}}
     table表示
     <table>

@@ -37,7 +37,8 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = Task::create($request->all());
+        return redirect()->route('task.index')->with('success', 'TODOを登録しました');
     }
 
     /**
