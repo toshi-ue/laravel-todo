@@ -50,7 +50,8 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::find($id);
+        return view('task.show', compact('task'));
     }
 
     /**
@@ -61,7 +62,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        // TODO: 追加
     }
 
     /**
@@ -73,7 +74,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // TODO: 追加
     }
 
     /**
@@ -84,6 +85,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // TODO: 追加
     }
 }
