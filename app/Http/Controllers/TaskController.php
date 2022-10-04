@@ -62,7 +62,8 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        // TODO: 追加
+        $task = Task::find($id);
+        return view('task.edit', compact('task'));
     }
 
     /**

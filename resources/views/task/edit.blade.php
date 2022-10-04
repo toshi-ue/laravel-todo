@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 
 @section('title') TODO詳細({{ $task['description'] }})@endsection
@@ -6,6 +7,7 @@
 <div class="wrapper">
     <div class="header">
         <h1>TODO詳細</h1>
+        edit.blade.php
     </div>
     <div class="contents">
         @include('layouts.flash_message')
