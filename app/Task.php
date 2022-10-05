@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $guarded = ['id'];
+    // [Laravel 9 投稿CRUD 機能を作成 〜 投稿を保存 | logsuke](https://logsuke.com/web/programming/laravel/laravel-post-save)
+    protected $guarded = ['id', 'created_at'];
 }
