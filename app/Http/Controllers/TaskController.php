@@ -16,8 +16,8 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
-        $param = ['tasks' => $tasks,];
-        return view('task.index', $param);
+        // $param = ['tasks' => $tasks,];
+        return view('task.index',  compact('tasks'));
     }
 
     /**
@@ -89,6 +89,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        // TODO: 追加
+        Task::where('id', $id)->delete();
+        return redirect()->route('task.index')->with('success', 'TODOを削除しました');
     }
 }
