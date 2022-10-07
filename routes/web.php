@@ -14,4 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('task', 'TaskController');
+// Route::resource('task', 'TaskController');
+// Route::get('/{any}', function () {
+//     return view('task.index');
+// })->where('any', '.*');
+Route::get('/{any}', function () {
+    return view('task.index');
+})->where('any', '.*');
