@@ -12,8 +12,8 @@
 <body>
     <div id="app">
         <header-component></header-component>
-        <example-component></example-component>
         @yield('wrapper')
+        <router-view></router-view>
     </div>
     {{-- TODO: BootStrap5 or TailWindCSSを追加する(CDN) --}}
     <script src="{{ mix('js/app.js') }}" defer></script>
