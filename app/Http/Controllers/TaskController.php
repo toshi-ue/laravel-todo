@@ -36,10 +36,14 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TaskRequest $request)
+    // public function store(TaskRequest $request)
+    // {
+    //     $task = Task::create($request->all());
+    //     return redirect()->route('task.index')->with('success', 'TODOを登録しました');
+    // }
+    public function store(Request $request)
     {
-        $task = Task::create($request->all());
-        return redirect()->route('task.index')->with('success', 'TODOを登録しました');
+        return Task::create($request->all());
     }
 
     /**
