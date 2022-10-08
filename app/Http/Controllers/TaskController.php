@@ -15,9 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        return Task::all();
         // $param = ['tasks' => $tasks,];
-        return view('task.index',  compact('tasks'));
+        // return view('task.index',  compact('tasks'));
     }
 
     /**
