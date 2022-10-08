@@ -82,12 +82,17 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskRequest $request, $id)
+    // public function update(TaskRequest $request, $id)
+    // {
+    //     $task = Task::find($id);
+    //     $form = $request->all();
+    //     $task->fill($form)->save();
+    //     return back()->with('success', '更新しました');
+    // }
+    public function update(Request $request, Task $task)
     {
-        $task = Task::find($id);
-        $form = $request->all();
-        $task->fill($form)->save();
-        return back()->with('success', '更新しました');
+        $task->update($request->all());
+        return $task;
     }
 
     /**
