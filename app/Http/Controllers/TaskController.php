@@ -101,9 +101,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     Task::where('id', $id)->delete();
+    //     return redirect()->route('task.index')->with('success', 'TODOを削除しました');
+    // }
+    public function destroy(Task $task)
     {
-        Task::where('id', $id)->delete();
-        return redirect()->route('task.index')->with('success', 'TODOを削除しました');
+        $task->delete();
+        return $task;
     }
 }
