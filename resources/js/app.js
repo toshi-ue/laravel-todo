@@ -1,19 +1,22 @@
 // import VueRouter from "vue-router";
-import VueRouter from 'vue-router';
+import VueRouter from "vue-router";
+import FooterComponent from './components/FooterComponent'
 import HeaderComponent from "./components/HeaderComponent";
-import TaskEditComponent from './components/TaskEditComponent';
+import TaskEditComponent from "./components/TaskEditComponent";
 import TaskCreateComponent from "./components/TaskCreateComponent";
 import TaskListComponent from "./components/TaskListComponent";
 import TaskShowComponent from "./components/TaskShowComponent";
+
+import store from './store/index';
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,36 +30,38 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('header-component', HeaderComponent);
+// TODO: HeaderComponentでもheader-componentでも良い?
+Vue.component("HeaderComponent", HeaderComponent);
+Vue.component("footer-component", FooterComponent);
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes: [
         {
-            path: '/tasks',
-            name: 'task.list',
-            component: TaskListComponent
+            path: "/tasks",
+            name: "task.list",
+            component: TaskListComponent,
         },
         {
-            path: '/tasks/:taskId',
-            name: 'task.show',
+            path: "/tasks/:taskId",
+            name: "task.show",
             component: TaskShowComponent,
-            props: true
+            props: true,
         },
         {
-            path: '/tasks/create',
-            name: 'task.create',
+            path: "/tasks/create",
+            name: "task.create",
             component: TaskCreateComponent,
         },
         {
-            path: '/tasks/:taskId/edit',
-            name: 'task.edit',
+            path: "/tasks/:taskId/edit",
+            name: "task.edit",
             component: TaskEditComponent,
-            props: true
+            props: true,
         },
-    ]
+    ],
 });
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -65,6 +70,7 @@ const router = new VueRouter({
  */
 
 const app = new Vue({
-    el: '#app',
-    router
+    el: "#app",
+    router,
+    store,
 });
