@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                   <th>作成日</th>
-                  <td>{{ task.created_at }}</td>
+                  <td>{{ getFormattedTime(task.created_at) }}</td>
                 </tr>
               </table>
             </div>
@@ -43,12 +43,10 @@
   </div>
 </template>
 <script>
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
+
 export default {
-  // TODO:
-  //  一覧画面画面から当画面へ遷移してくると以下のエラーが発生する
-  //    [Vue warn]: Invalid prop: type check failed for prop "taskId". Expected String with value "6", got Number with value 6.
-  //  変更した後に詳細ページでリロードすると逆のエラーが発生する
-  //    [Vue warn]: Invalid prop: type check failed for prop "taskId". Expected Number with value 6, got String with value "6".
   props: {
     taskId: String,
   },
@@ -63,8 +61,13 @@ export default {
         this.task = res.data;
       });
     },
+    getFormattedTime(time) {
+      if (time) {
+        return format(new Date(time), "M / dd (E)", { locale: ja });
+      }
+    },
   },
-  mounted() {
+  created() {
     this.getTask();
   },
 };
