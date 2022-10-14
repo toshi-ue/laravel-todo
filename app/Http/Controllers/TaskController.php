@@ -15,9 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
-        // $param = ['tasks' => $tasks,];
-        // return view('task.index',  compact('tasks'));
+        // TODO: ソート(並べ替え)機能を追加する
+        // return Task::orderBy('created_at', 'desc')->paginate(5);
+        return Task::paginate(10);
     }
 
     /**
