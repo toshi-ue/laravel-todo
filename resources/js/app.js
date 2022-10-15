@@ -1,13 +1,13 @@
-// import VueRouter from "vue-router";
+import VueI18n from "vue-i18n";
 import VueRouter from "vue-router";
-import FooterComponent from './components/FooterComponent'
+import FooterComponent from "./components/FooterComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import TaskEditComponent from "./components/TaskEditComponent";
 import TaskCreateComponent from "./components/TaskCreateComponent";
 import TaskListComponent from "./components/TaskListComponent";
 import TaskShowComponent from "./components/TaskShowComponent";
 
-import store from './store/index';
+import store from "./store/index";
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -33,7 +33,19 @@ window.Vue = require("vue");
 Vue.component("HeaderComponent", HeaderComponent);
 Vue.component("footer-component", FooterComponent);
 
+// FIXME: VueI18nを追加するとエラーが発生する、いろんな箇所に影響が出る
+// Vue.use(VueI18n, VueRouter);
 Vue.use(VueRouter);
+
+const i18n = new VueI18n({
+    locale: "ja",
+    // locale: "en",
+    fallbackLocale: "en",
+    messages: {
+        en: require("../lang/en.json"),
+        ja: require("../lang/ja.json"),
+    },
+});
 
 const router = new VueRouter({
     mode: "history",
@@ -70,6 +82,7 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: "#app",
+    i18n,
     router,
     store,
 });

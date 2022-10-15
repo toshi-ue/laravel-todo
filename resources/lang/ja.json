@@ -1,0 +1,19 @@
+{
+    "task": {
+        "created_at": "登録日",
+        "description": "詳細",
+        "done": "進捗",
+        "id": "ID",
+        "status": {
+            "undone": "未完了",
+            "completed": "完了"
+        },
+        "title": {
+            "edit": "TODO編集"
+        },
+        "button": {
+            "add": "登録",
+            "update": "更新"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "task": {
+        "created_at": "Created at",
+        "description": "Description",
+        "done": "Done",
+        "id": "ID",
+        "status": {
+            "undone": "undone",
+            "completed": "completed"
+        },
+        "title": {
+            "edit": "Edit TODO"
+        },
+        "button": {
+            "add": "add",
+            "update": "update"
+        }
+    }
+}

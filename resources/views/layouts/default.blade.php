@@ -11,6 +11,7 @@
     <div id="app">
         <header-component></header-component>
         <router-view :key="$route.fullPath"></router-view>
+        {{-- <router-view></router-view> --}}
         <footer-component></footer-component>
     </div>
     <script src="{{ mix('js/app.js') }}" defer></script>
