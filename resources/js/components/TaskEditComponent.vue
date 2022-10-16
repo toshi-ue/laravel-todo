@@ -1,13 +1,13 @@
 <template>
-  <div class="container min-vh-100">
-    <!-- TODO: フラッシュメッセージを追加する -->
+  <div
+    class="container content"
+    :style="'min-height: ' + $store.state.rect.contentMinHeight + 'px'"
+  >
     <!-- TODO: エラ〜メッセージの多言語化 - front -->
-    <!-- TODO: date-fns, vee-validateをグローバル化する
-     -->
+    <!-- TODO: date-fns, vee-validateをグローバル化する -->
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <div class="card">
-          <!-- <h2 class="card-header">TODO編集</h2> -->
           <h2 class="card-header">{{ $t("task.title.edit") }}</h2>
           <div class="card-body">
             <ValidationObserver ref="observer" v-slot="{ invalid }">
@@ -27,7 +27,7 @@
                   <label for="description" class="col-sm-3 col-form-label">{{
                     $t("task.description")
                   }}</label>
-                  <ValidationProvider rules="required|min:2|max:50" v-slot="{ errors }">
+                  <ValidationProvider rules="required|min:2|max:25" v-slot="{ errors }">
                     <textarea
                       class="col-sm-9 form-control"
                       id="description"
@@ -35,7 +35,7 @@
                       :placeholder="$t('task.description')"
                       rows="2"
                       minlength="2"
-                      maxlength="20"
+                      maxlength="25"
                       autofocus
                     />
                     <span class="text-danger">{{ errors[0] }}</span>
@@ -112,7 +112,6 @@ export default {
     getTask() {
       axios.get("/api/tasks/" + this.taskId).then((res) => {
         this.task = res.data;
-        this.task.description = "";
       });
     },
     submit() {

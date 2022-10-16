@@ -9,10 +9,11 @@
             "completed": "完了"
         },
         "title": {
+            "add": "TODO追加",
             "edit": "TODO編集"
         },
         "button": {
-            "add": "登録",
+            "add": "追加",
             "update": "更新"
         }
     }

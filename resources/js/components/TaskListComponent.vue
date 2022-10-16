@@ -3,6 +3,7 @@
     class="container content"
     :style="'min-height: ' + $store.state.rect.contentMinHeight + 'px'"
   >
+    <!-- TODO: フラッシュメッセージを追加する -->
     <div class="heading">
       <h1>TODO一覧</h1>
     </div>
