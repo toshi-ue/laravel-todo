@@ -2,7 +2,9 @@
   <div class="container-fluid sticky-top bg-light mb-3" ref="header">
     <div class="container">
       <nav class="navbar">
-        <span class="navbar-brand mb-0 h1">TODOアプリ</span>
+        <span class="navbar-brand mb-0 h1"
+          ><RouterLink to="/tasks">TODOアプリ</RouterLink></span
+        >
         <div>
           <router-link v-bind:to="{ name: 'task.list' }" v-if="isNotMatchPath('/tasks')"
             ><button class="btn btn-success">List</button>
