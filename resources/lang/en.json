@@ -1,4 +1,5 @@
 {
+    "login": "Login",
     "task": {
         "created_at": "Created at",
         "description": "Description",
@@ -9,11 +10,14 @@
             "completed": "completed"
         },
         "title": {
+            "add": "Add TODO",
             "edit": "Edit TODO"
         },
         "button": {
             "add": "add",
-            "update": "update"
+            "update": "update",
+            "list": "list"
         }
-    }
+    },
+    "signup": "Sign Up"
 }

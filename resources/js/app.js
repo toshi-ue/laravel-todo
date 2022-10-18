@@ -2,6 +2,7 @@ import VueI18n from "vue-i18n";
 import VueRouter from "vue-router";
 import FooterComponent from "./components/FooterComponent";
 import HeaderComponent from "./components/HeaderComponent";
+import Login from './components/Login'
 import TaskEditComponent from "./components/TaskEditComponent";
 import TaskCreateComponent from "./components/TaskCreateComponent";
 import TaskListComponent from "./components/TaskListComponent";
@@ -71,6 +72,10 @@ const router = new VueRouter({
             name: "task.edit",
             component: TaskEditComponent,
             props: true,
+        },
+        {
+            path: "/login",
+            component: Login,
         },
     ],
 });

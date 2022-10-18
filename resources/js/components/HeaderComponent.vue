@@ -6,15 +6,15 @@
           ><RouterLink to="/tasks">TODOアプリ</RouterLink></span
         >
         <div>
-          <router-link v-bind:to="{ name: 'task.list' }" v-if="isNotMatchPath('/tasks')"
-            ><button class="btn btn-success">List</button>
-          </router-link>
-          <router-link
-            :to="{ name: 'task.create' }"
-            v-if="isNotMatchPath('/tasks/create')"
-          >
-            <button class="btn btn-success">ADD</button>
-          </router-link>
+          <RouterLink v-bind:to="{ name: 'task.list' }"
+            ><button class="btn btn-success">{{ $t("task.button.list") }}</button>
+          </RouterLink>
+          <RouterLink :to="{ name: 'task.create' }">
+            <button class="btn btn-success">{{ $t("task.button.add") }}</button>
+          </RouterLink>
+          <RouterLink to="/login">
+            <button class="btn btn-success">{{ $t("login") }}</button>
+          </RouterLink>
         </div>
       </nav>
     </div>
