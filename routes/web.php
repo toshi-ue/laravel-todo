@@ -18,10 +18,10 @@ Route::get('/', function () {
 // Route::get('/{any}', function () {
 //     return view('task.index');
 // })->where('any', '.*');
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/{any}', function () {
     return view('task.index');
 })->where('any', '.*');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
