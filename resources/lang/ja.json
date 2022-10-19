@@ -1,23 +1,23 @@
 {
-    "login": "ログイン",
-    "task": {
-        "created_at": "登録日",
-        "description": "詳細",
-        "done": "進捗",
-        "id": "ID",
-        "status": {
-            "undone": "未完了",
-            "completed": "完了"
-        },
-        "title": {
-            "add": "TODO追加",
-            "edit": "TODO編集"
-        },
-        "button": {
-            "add": "追加",
-            "update": "更新",
-            "list": "一覧"
-        }
+  "login": "ログイン",
+  "task": {
+    "created_at": "登録日",
+    "description": "詳細",
+    "done": "進捗",
+    "id": "ID",
+    "status": {
+      "undone": "未完了",
+      "completed": "完了"
     },
-    "signup": "登録"
+    "title": {
+      "add": "TODO追加",
+      "edit": "TODO編集"
+    },
+    "button": {
+      "add": "追加",
+      "update": "更新",
+      "list": "一覧"
+    }
+  },
+  "register": "登録"
 }

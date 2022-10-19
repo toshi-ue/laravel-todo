@@ -1,23 +1,23 @@
 {
-    "login": "Login",
-    "task": {
-        "created_at": "Created at",
-        "description": "Description",
-        "done": "Done",
-        "id": "ID",
-        "status": {
-            "undone": "undone",
-            "completed": "completed"
-        },
-        "title": {
-            "add": "Add TODO",
-            "edit": "Edit TODO"
-        },
-        "button": {
-            "add": "add",
-            "update": "update",
-            "list": "list"
-        }
+  "login": "Login",
+  "task": {
+    "created_at": "Created at",
+    "description": "Description",
+    "done": "Done",
+    "id": "ID",
+    "status": {
+      "undone": "undone",
+      "completed": "completed"
     },
-    "signup": "Sign Up"
+    "title": {
+      "add": "Add TODO",
+      "edit": "Edit TODO"
+    },
+    "button": {
+      "add": "add",
+      "update": "update",
+      "list": "list"
+    }
+  },
+  "register": "Sign Up"
 }
