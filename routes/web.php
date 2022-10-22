@@ -11,11 +11,9 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/{any}', function () {
     return view('welcome');
 })->where('any', '.*');
 Route::resource('task', 'TaskController');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
