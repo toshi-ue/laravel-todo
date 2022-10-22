@@ -1,7 +1,8 @@
 import Router from "vue-router";
-import Home from "./views/Home.vue";
 import About from "./views/About.vue";
+import Home from "./views/Home.vue";
 import NotFound from "./views/NotFound.vue";
+import User from "./views/User.vue";
 
 export default new Router({
     mode: "history",
@@ -19,6 +20,11 @@ export default new Router({
             path: '/about',
             name: 'about',
             component: About
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: User
         },
     ]
 })
