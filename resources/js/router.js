@@ -1,11 +1,12 @@
 import Router from "vue-router";
 import About from "./views/About";
-import AddTask from "./views/AddTask";
+import TaskAdd from "./views/TaskAdd";
 import Home from "./views/Home";
 import NotFound from "./views/NotFound";
 import TaskList from "./views/TaskList";
 import User from "./views/User";
 
+// FIXME: ログインしていなくてもTODO一覧に入ることができる
 export default new Router({
     mode: "history",
     routes: [
@@ -31,7 +32,7 @@ export default new Router({
         {
             path: '/tasks/create',
             name: 'task.new',
-            component: AddTask
+            component: TaskAdd
         },
         {
             path: '/user',
