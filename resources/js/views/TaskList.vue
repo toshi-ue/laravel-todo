@@ -2,7 +2,7 @@
     <!-- <div class="container content" :style="'min-height: ' + $store.state.rect.contentMinHeight + 'px'"> -->
     <div class="container content">
         <!-- TODO: フラッシュメッセージを追加する -->
-        <div class="heading row">
+        <div class="heading row mt-4">
             <div class="col-8">
                 <h1>TODO一覧</h1>
             </div>
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(task, index) in tasks" :key="task.id">
+                <tr v-for="task in tasks" :key="task.id">
                     <th scope="row">{{ task.id }}</th>
                     <td>{{ task.description }}</td>
                     <td>
@@ -108,17 +108,9 @@ export default {
         //     }
         // },
         getTasks() {
-            // axios.get(`/api/tasks?page=${this.current_page}`).then((res) => {
-            //     const tasks = res.data;
-            //     this.current_page = tasks.current_page;
-            //     this.last_page = tasks.last_page;
-            //     this.tasks = tasks.data;
-            // });
             axios.get(`/api/tasks`).then((res) => {
                 const tasks = res.data;
-                // this.current_page = tasks.current_page;
-                // this.last_page = tasks.last_page;
-                this.tasks = tasks.data;
+                this.tasks = tasks;
             });
         },
         // isCurrent(page) {
