@@ -2,8 +2,15 @@
     <!-- <div class="container content" :style="'min-height: ' + $store.state.rect.contentMinHeight + 'px'"> -->
     <div class="container content">
         <!-- TODO: フラッシュメッセージを追加する -->
-        <div class="heading">
-            <h1>TODO一覧</h1>
+        <div class="heading row">
+            <div class="col-8">
+                <h1>TODO一覧</h1>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end">
+                <RouterLink v-bind:to="{ name: 'task.new' }">
+                    <button class="btn btn-success">追加</button>
+                </RouterLink>
+            </div>
         </div>
         <table class="table table-hover">
             <thead class="thead-light">
