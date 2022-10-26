@@ -26,7 +26,7 @@ class TaskRequest extends FormRequest
         return [
             // TODO: descriptionを日本語化する
             'description' => 'required',
-            'done' => 'required',
+            // 'done' => 'required',
         ];
     }
 }

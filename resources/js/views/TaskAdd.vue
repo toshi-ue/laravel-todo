@@ -53,7 +53,7 @@ export default {
     },
     methods: {
         submit() {
-            axios.post("/tasks", this.task).then((res) => {
+            axios.post(`/api/tasks`, this.task).then((res) => {
                 this.$router.push({ name: "tasks" })
             })
         }
