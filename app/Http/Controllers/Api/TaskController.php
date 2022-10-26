@@ -62,6 +62,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Task::where('id', $id)->delete();
     }
 }
