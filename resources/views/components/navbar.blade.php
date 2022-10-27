@@ -1,8 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
+        @guest
         <a class="navbar-brand" href="{{ url('/') }}">
             TODOリスト
         </a>
+        @else
+        <a class="navbar-brand" href="{{ url('/tasks') }}">
+            TODOリスト
+        </a>
+        @endguest
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>

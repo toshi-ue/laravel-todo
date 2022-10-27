@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('tasks', 'Api\TaskController')->only(['index', 'store', 'show', 'edit', 'destroy']);
+// FIXME: 以下のようにauthを設定してもログイン画面にリダイレクトされない([認証 8.x Laravel](https://readouble.com/laravel/8.x/ja/authentication.html))。ブラウザのコンソールでは `GET http://localhost:8000/api/tasks/34 401 (Unauthorized)`のエラーが表示される
+// Route::resource('tasks', 'Api\TaskController')->only(['index', 'store', 'show', 'edit', 'destroy'])->middleware('auth');
 // Route::group(['middleware' => ['api']], function () {
 //     Route::resource('tasks', 'Api\TaskController')->only(['index', 'store', 'show', 'edit', 'destroy']);
 // });
