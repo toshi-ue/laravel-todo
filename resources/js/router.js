@@ -8,7 +8,6 @@ import TaskDetail from "./views/TaskDetail";
 import TaskList from "./views/TaskList";
 import User from "./views/User";
 
-// FIXME: ログインしていなくてもTODO一覧に入ることができる
 export default new Router({
     mode: "history",
     routes: [

@@ -1,13 +1,10 @@
 <template>
-    <div class="text-center">
+    <div class="text-center mt-4">
         <p>
-            <!-- FIXME: ボタンを使用してVue.jsからLaravelの画面に遷移する方法はあるのか? -->
-            <!-- <button type="button" class="btn btn-primary" role="button" onclick="/login">ログイン</button> -->
-            <a href="http://localhost:8000/login">ログイン</a>
+            <a href="http://localhost:8000/login" class="btn btn-primary">ログイン</a>
         </p>
         <p>
-            <!-- <button type="button" class="btn btn-primary" role="button" onclick="/register">新規登録</button> -->
-            <a href="http://localhost:8000/register">新規登録</a>
-    </p>
+            <a href="http://localhost:8000/register" class="btn btn-primary">新規登録</a>
+        </p>
     </div>
 </template>
