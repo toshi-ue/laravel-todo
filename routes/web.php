@@ -10,10 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
 Route::get('/{any}', function () {
-    return view('welcome');
-})->where('any', '.*');
+    return view('loggedin.index');
+})->where('any', '.*')->middleware('auth');
 Route::resource('task', 'TaskController');
