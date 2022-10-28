@@ -69,6 +69,9 @@
                             </div>
                         </div>
                     </form>
+                    <p class="text-right">
+                        <a href="{{ route('login') }}">ログインページへ</a>
+                    </p>
                 </div>
             </div>
         </div>

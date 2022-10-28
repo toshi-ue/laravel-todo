@@ -65,6 +65,9 @@
                             </div>
                         </div>
                     </form>
+                    <p class="text-right">
+                        <a class="text-right" href="{{ route('register') }}">新規登録ページへ</a>
+                    </p>
                 </div>
             </div>
         </div>
