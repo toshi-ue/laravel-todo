@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Task;
+use App\User;
 use App\Http\Requests\TaskRequest;
 
 class TaskController extends Controller
@@ -17,9 +18,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        // \Log::debug(Auth::user());
-        \Log::debug(Auth::user());
-        $tasks = Task::all();
+        // $tasks = Task::all();
+        // FIXME: VSCodeではエラー扱いになるがログ、ブラウザでは問題なく動作する
+        // [第8章 ユーザーと記事の関連付け｜Laravel入門 - Newmonz](https://newmonz.jp/lesson/laravel-basic/chapter-8)
+        $tasks = Auth::user()->tasks()->orderBy('created_at', 'desc')->get();
+        // \Log::debug($tasks);
         return $tasks;
     }
 
@@ -31,7 +34,13 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        return Task::create($request->all());
+        // [【Laravel入門】CRUD実装〜新規登録 - Qiita](https://qiita.com/yukibe/items/36ebeca50ecad3ee18f6#add%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3)
+        // [Laravel+PostgreSQL+Vue.jsでSPA開発【チュートリアル】 - OPTiM TECH BLOG](https://tech-blog.optim.co.jp/entry/2019/08/13/173000#:~:text=1%E4%BB%B6-,%E8%BF%BD%E5%8A%A0,-%3C%3Fphp%0Apublic%20function)
+        $task = new Task();
+        $task = $task->fill($request->all());
+        $task->user_id = Auth::id();
+        $task->save();
+        return response('OK', 200);
     }
 
     /**
