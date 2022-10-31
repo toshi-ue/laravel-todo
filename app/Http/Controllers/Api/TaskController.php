@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Task;
@@ -21,8 +22,9 @@ class TaskController extends Controller
         // $tasks = Task::all();
         // FIXME: VSCodeではエラー扱いになるがログ、ブラウザでは問題なく動作する
         // [第8章 ユーザーと記事の関連付け｜Laravel入門 - Newmonz](https://newmonz.jp/lesson/laravel-basic/chapter-8)
-        $tasks = Auth::user()->tasks()->orderBy('created_at', 'desc')->get();
-        // \Log::debug($tasks);
+        // $tasks = Auth::user()->tasks()->orderBy('created_at', 'desc')->get();
+        $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->get();
+        \Log::debug($tasks);
         return $tasks;
     }
 
