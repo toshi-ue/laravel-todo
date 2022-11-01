@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "vee-validate": "^3.4.14",
-        "vue-router": "^3.6.5"
+        "vue-router": "^3.6.5",
+        "vuejs-paginate": "^2.1.0"
     }
 }
