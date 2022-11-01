@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Task;
-use App\User;
 use App\Http\Requests\TaskRequest;
 
 class TaskController extends Controller
@@ -23,8 +22,8 @@ class TaskController extends Controller
         // FIXME: VSCodeではエラー扱いになるがログ、ブラウザでは問題なく動作する
         // [第8章 ユーザーと記事の関連付け｜Laravel入門 - Newmonz](https://newmonz.jp/lesson/laravel-basic/chapter-8)
         // $tasks = Auth::user()->tasks()->orderBy('created_at', 'desc')->get();
-        $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->get();
-        \Log::debug($tasks);
+        // $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->get();
+        $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->paginate(1);
         return $tasks;
     }
 

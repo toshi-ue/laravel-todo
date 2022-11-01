@@ -49,77 +49,54 @@
                 </tr>
             </tbody>
         </table>
-        <div>
+        <div v-if="getPageCount > 1">
             <!-- FIXME: ページネーションはurlを変更する方が良い?変更する場合はどうやって? -->
-            <!-- <ul class="pagination">
-                <li class="inactive" :class="current_page == 1 ? 'disabled' : ''" @click="changePage(current_page - 1)">
-                    «
-                </li>
-                <li @click="changePage(page)" :class="isCurrent(page) ? 'active' : 'inactive'"
-                    v-for="page in frontPageRange" :key="page">
-                    {{ page }}
-                </li>
-                <li v-show="front_dot" class="inactive disabled">...</li>
-                <li @click="changePage(page)" :class="isCurrent(page) ? 'active' : 'inactive'"
-                    v-for="page in middlePageRange" :key="page">
-                    {{ page }}
-                </li>
-                <li v-show="end_dot" class="inactive disabled">...</li>
-                <li @click="changePage(page)" :class="isCurrent(page) ? 'active' : 'inactive'"
-                    v-for="page in endPageRange" :key="page">
-                    {{ page }}
-                </li>
-                <li class="inactive" :class="current_page >= last_page ? 'disabled' : ''"
-                    @click="changePage(current_page + 1)">
-                    »
-                </li>
-            </ul> -->
+            <VuejsPaginate v-model="currentPage" :pageCount="getPageCount" :prevText="'<'" :nextText="'>'"
+                :clickHandler="paginateClickCallback" :containerClass="'pagination'" :first-last-button="true"
+                :first-button-text="'<<'" :last-button-text="'>>'" :pageClass="'page-item'">
+            </VuejsPaginate>
         </div>
     </div>
 </template>
 
 <script>
+import VueJsPaginate from "vuejs-paginate";
 // import { format } from "date-fns";
 // import { ja } from "date-fns/locale";
 
+const FIRST_PAGE_NUM = 1;
+
 export default {
+    components: {
+        'VuejsPaginate': VueJsPaginate
+    },
     data: function () {
         return {
             tasks: [],
-            // current_page: 1,
-            // last_page: "",
-            // range: 5,
-            // front_dot: false,
-            // end_dot: false,
+            currentPage: 1,
+            perPage: 1,
+            totalCount: 0,
         };
     },
     methods: {
-        // calRange(start, end) {
-        //     const range = [];
-        //     for (let i = start; i <= end; i++) {
-        //         range.push(i);
-        //     }
-        //     return range;
-        // },
-        // changePage(page) {
-        //     if (page > 0 && page <= this.last_page) {
-        //         this.current_page = page;
-        //         this.getTasks();
-        //     }
-        // },
-        getTasks() {
-            axios.get(`/api/tasks`).then((res) => {
-                const tasks = res.data;
-                this.tasks = tasks;
+        getTasks(pageNum) {
+            axios.get(`/api/tasks?page=` + pageNum).then((res) => {
+                const result = res.data;
+                this.tasks = result.data;
+                this.currentPage = result.current_page;
+                this.perPage = result.per_page;
+                this.totalCount = result.total;
             });
         },
-        // isCurrent(page) {
-        //     return page === this.current_page;
-        // },
         deleteTask(id) {
             axios.delete("/api/tasks/" + id).then((res) => {
                 this.getTasks();
             });
+        },
+        paginateClickCallback: function (pageNum) {
+            console.log(pageNum)
+            this.currentPage = Number(pageNum)
+            this.getTasks(pageNum)
         },
         // getFormattedTime(time) {
         //     if (time) {
@@ -127,53 +104,13 @@ export default {
         //     }
         // },
     },
-    // computed: {
-    //     endPageRange() {
-    //         if (!this.sizeCheck) return [];
-
-    //         return this.calRange(this.last_page - 1, this.last_page);
-    //     },
-    //     frontPageRange() {
-    //         if (!this.sizeCheck) {
-    //             this.front_dot = false;
-    //             this.end_dot = false;
-    //             return this.calRange(1, this.last_page);
-    //         }
-    //         return this.calRange(1, 2);
-    //     },
-    //     middlePageRange() {
-    //         let start = "";
-    //         let end = "";
-
-    //         if (!this.sizeCheck) return [];
-
-    //         if (this.current_page <= this.range) {
-    //             start = 3;
-    //             end = this.range + 2;
-    //             this.front_dot = false;
-    //             this.end_dot = true;
-    //         } else if (this.current_page > this.last_page - this.range) {
-    //             start = this.last_page - this.range - 1;
-    //             end = this.last_page - 2;
-    //             this.front_dot = true;
-    //             this.end_dot = false;
-    //         } else {
-    //             start = this.current_page - Math.floor(this.range / 2);
-    //             end = this.current_page + Math.floor(this.range / 2);
-    //             this.front_dot = true;
-    //             this.end_dot = true;
-    //         }
-    //         return this.calRange(start, end);
-    //     },
-    //     sizeCheck() {
-    //         if (this.last_page <= this.range + 4) {
-    //             return false;
-    //         }
-    //         return true;
-    //     },
-    // },
+    computed: {
+        getPageCount: function () {
+            return Math.ceil(this.totalCount / this.perPage);
+        }
+    },
     mounted() {
-        this.getTasks();
+        this.getTasks(FIRST_PAGE_NUM);
     },
 };
 </script>
@@ -182,10 +119,6 @@ export default {
 .active {
     background-color: blue;
     color: white;
-}
-
-.disabled {
-    cursor: not-allowed;
 }
 
 .inactive {
@@ -204,6 +137,16 @@ export default {
     /* FIXME: disableを優先させる方法がわからない */
     cursor: pointer;
 }
+
+.pagination li.disabled,
+.pagination li.disabled a,
+.page-item.disabled,
+.page-item.disabled a {
+    color: #616A71;
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 
 .pagination li+li {
     border-left: none;
