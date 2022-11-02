@@ -16,7 +16,7 @@
             <div class="col-12 text-right">
                 <label for="display-count">表示件数</label>
                 <select name="per-page" id="display-count" v-model="perPage" v-bind:checked="perPage"
-                    v-on:change="reloadList">
+                    v-on:change="changePerPage">
                     <option value="1">1</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -76,7 +76,7 @@ import VueJsPaginate from "vuejs-paginate";
 // import { format } from "date-fns";
 // import { ja } from "date-fns/locale";
 
-const FIRST_PAGE_NUM = 1;
+const FIRST_PAGE_NUMBER = 1;
 const DEFAULT_PER_PAGE = "10";
 
 export default {
@@ -86,8 +86,7 @@ export default {
     data: function () {
         return {
             tasks: [],
-            currentPage: FIRST_PAGE_NUM,
-            perPage: DEFAULT_PER_PAGE,
+            currentPage: FIRST_PAGE_NUMBER,
             // QUESTION 初期値は null 0 のどちらが良いのか?
             totalCount: 0,
         };
@@ -111,7 +110,7 @@ export default {
             this.currentPage = pageNum;
             this.getTasks(this.perPage, pageNum);
         },
-        reloadList(e) {
+        changePerPage(e) {
             // QUESTION 不正な値の挿入は気にしなくて良い?
             //  [Laravel5のページング機能に表示件数の可変を実装する方法 - Qiita](https://qiita.com/qwe001/items/a82054b45acaca164d7c)
             // const changedPerPage = e.target.value;
@@ -133,7 +132,7 @@ export default {
         }
     },
     mounted() {
-        this.getTasks(FIRST_PAGE_NUM);
+        this.getTasks(FIRST_PAGE_NUMBER);
     },
 };
 </script>
