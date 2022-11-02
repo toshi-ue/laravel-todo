@@ -16,14 +16,14 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $tasks = Task::all();
         // FIXME: VSCodeではエラー扱いになるがログ、ブラウザでは問題なく動作する
         // [第8章 ユーザーと記事の関連付け｜Laravel入門 - Newmonz](https://newmonz.jp/lesson/laravel-basic/chapter-8)
         // $tasks = Auth::user()->tasks()->orderBy('created_at', 'desc')->get();
         // $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->get();
-        $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->paginate(1);
+        $display_count = $request->perPage;
+        $tasks = Task::whereUserId(Auth::id())->orderBy('created_at', 'desc')->paginate($display_count);
         return $tasks;
     }
 

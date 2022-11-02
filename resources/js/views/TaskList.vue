@@ -12,6 +12,18 @@
                 </RouterLink>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 text-right">
+                <label for="display-count">表示件数</label>
+                <select name="per-page" id="display-count" v-model="perPage" v-bind:checked="perPage"
+                    v-on:change="reloadList">
+                    <option value="1">1</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+
+                </select>
+            </div>
+        </div>
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -65,6 +77,7 @@ import VueJsPaginate from "vuejs-paginate";
 // import { ja } from "date-fns/locale";
 
 const FIRST_PAGE_NUM = 1;
+const DEFAULT_PER_PAGE = "10";
 
 export default {
     components: {
@@ -73,14 +86,15 @@ export default {
     data: function () {
         return {
             tasks: [],
-            currentPage: 1,
-            perPage: 1,
+            currentPage: FIRST_PAGE_NUM,
+            perPage: DEFAULT_PER_PAGE,
+            // QUESTION 初期値は null 0 のどちらが良いのか?
             totalCount: 0,
         };
     },
     methods: {
-        getTasks(pageNum) {
-            axios.get(`/api/tasks?page=` + pageNum).then((res) => {
+        getTasks(perPage, pageNum) {
+            axios.get(`/api/tasks`, { params: { perPage: perPage, page: pageNum } }).then((res) => {
                 const result = res.data;
                 this.tasks = result.data;
                 this.currentPage = result.current_page;
@@ -94,10 +108,19 @@ export default {
             });
         },
         paginateClickCallback: function (pageNum) {
-            console.log(pageNum)
-            this.currentPage = Number(pageNum)
-            this.getTasks(pageNum)
+            this.currentPage = pageNum;
+            this.getTasks(this.perPage, pageNum);
         },
+        reloadList(e) {
+            // QUESTION 不正な値の挿入は気にしなくて良い?
+            //  [Laravel5のページング機能に表示件数の可変を実装する方法 - Qiita](https://qiita.com/qwe001/items/a82054b45acaca164d7c)
+            // const changedPerPage = e.target.value;
+            // if (!["1", "10", "20"].includes(changedPerPage)) {
+            //     this.perPage = DEFAULT_PER_PAGE;
+            // }
+            this.currentPage = 1;
+            this.getTasks(this.perPage, this.currentPage);
+        }
         // getFormattedTime(time) {
         //     if (time) {
         //         return format(new Date(time), "M / dd (E)", { locale: ja });
@@ -134,7 +157,6 @@ export default {
     border: 1px solid #ddd;
     padding: 6px 12px;
     text-align: center;
-    /* FIXME: disableを優先させる方法がわからない */
     cursor: pointer;
 }
 
