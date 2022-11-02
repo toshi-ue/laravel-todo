@@ -62,7 +62,6 @@
             </tbody>
         </table>
         <div v-if="getPageCount > 1">
-            <!-- FIXME: ページネーションはurlを変更する方が良い?変更する場合はどうやって? -->
             <VuejsPaginate v-model="currentPage" :pageCount="getPageCount" :prevText="'<'" :nextText="'>'"
                 :clickHandler="paginateClickCallback" :containerClass="'pagination'" :first-last-button="true"
                 :first-button-text="'<<'" :last-button-text="'>>'" :pageClass="'page-item'">
@@ -86,14 +85,15 @@ export default {
     data: function () {
         return {
             tasks: [],
-            currentPage: FIRST_PAGE_NUMBER,
+            currentPage: this.currentPage = this.$route.query.page || FIRST_PAGE_NUMBER,
+            perPage: this.perPage = this.$route.query.perPage || DEFAULT_PER_PAGE,
             // QUESTION 初期値は null 0 のどちらが良いのか?
             totalCount: 0,
         };
     },
     methods: {
-        getTasks(perPage, pageNum) {
-            axios.get(`/api/tasks`, { params: { perPage: perPage, page: pageNum } }).then((res) => {
+        getTasks() {
+            axios.get(`/api/tasks`, { params: { perPage: this.perPage, page: this.currentPage } }).then((res) => {
                 const result = res.data;
                 this.tasks = result.data;
                 this.currentPage = result.current_page;
@@ -108,23 +108,32 @@ export default {
         },
         paginateClickCallback: function (pageNum) {
             this.currentPage = pageNum;
-            this.getTasks(this.perPage, pageNum);
+            this.$router.push({ name: 'tasks', query: { perPage: this.perPage, page: this.currentPage, } })
         },
         changePerPage(e) {
             // QUESTION 不正な値の挿入は気にしなくて良い?
             //  [Laravel5のページング機能に表示件数の可変を実装する方法 - Qiita](https://qiita.com/qwe001/items/a82054b45acaca164d7c)
-            // const changedPerPage = e.target.value;
-            // if (!["1", "10", "20"].includes(changedPerPage)) {
-            //     this.perPage = DEFAULT_PER_PAGE;
-            // }
+            const changedPerPage = e.target.value;
+            if (["1", "10", "20"].includes(changedPerPage)) {
+                this.perPage = changedPerPage;
+            } else {
+                this.perPage = DEFAULT_PER_PAGE;
+            }
             this.currentPage = 1;
-            this.getTasks(this.perPage, this.currentPage);
+            this.$router.push({ name: 'tasks', query: { perPage: this.perPage, page: this.currentPage, } })
+
         }
         // getFormattedTime(time) {
         //     if (time) {
         //         return format(new Date(time), "M / dd (E)", { locale: ja });
         //     }
         // },
+    },
+    beforeRouteUpdate(to, from, next) {
+        // UGLY: next()を実行しないとqueryの値が更新されない
+        // [【Nuxt.js/Vue.js】<nuxt-link>や$router.pushで同じパスに遷移すると画面が更新されない](https://zenn.dev/kokota/articles/352ecf9ada3a48)
+        next();
+        this.getTasks(to.query.perPage, to.query.page);
     },
     computed: {
         getPageCount: function () {
