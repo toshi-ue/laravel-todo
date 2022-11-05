@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="created_at" class="col-sm-3 col-form-label">登録日</label>
-                                    <!-- <p>{{ task.created_at }}</p> -->
+                                    <p>{{ getFormattedTime(task.created_at) }}</p>
                                     <!-- <input
               type="text"
               class="col-sm-9 form-control-plaintext"
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
 import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
 import { max, min, required } from "vee-validate/dist/rules";
 
@@ -83,6 +85,11 @@ export default {
         };
     },
     methods: {
+        getFormattedTime(time) {
+            if (time) {
+                return format(new Date(time), "M / dd (E)", { locale: ja });
+            }
+        },
         getTask() {
             axios.get("/api/tasks/" + this.taskId).then((res) => {
                 this.task = res.data;

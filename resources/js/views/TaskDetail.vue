@@ -25,7 +25,7 @@
                                 </tr>
                                 <tr>
                                     <th>作成日</th>
-                                    <!-- <td>{{ getFormattedTime(task.created_at) }}</td> -->
+                                    <td>{{ getFormattedTime(task.created_at) }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -41,8 +41,8 @@
     </div>
 </template>
 <script>
-// import { format } from "date-fns";
-// import { ja } from "date-fns/locale";
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
 
 export default {
     props: {

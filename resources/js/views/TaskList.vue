@@ -30,7 +30,7 @@
                     <th scope="col">#</th>
                     <th scope="col">概要</th>
                     <th scope="col">進捗</th>
-                    <!-- <th scope="col">登録日</th> -->
+                    <th scope="col">登録日</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -44,7 +44,7 @@
                         <span class="badge badge-light" v-if="task.done === 0">未完了</span>
                         <span class="badge badge-success" v-else>完了</span>
                     </td>
-                    <!-- <td>{{ getFormattedTime(task.created_at) }}</td> -->
+                    <td>{{ getFormattedTime(task.created_at) }}</td>
                     <td>
                         <router-link v-bind:to="{ name: 'task.show', params: { taskId: task.id.toString() } }">
                             <button class="btn btn-primary">確認</button>
@@ -72,8 +72,8 @@
 
 <script>
 import VueJsPaginate from "vuejs-paginate";
-// import { format } from "date-fns";
-// import { ja } from "date-fns/locale";
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
 
 const FIRST_PAGE_NUMBER = 1;
 const DEFAULT_PER_PAGE = "10";
@@ -122,12 +122,12 @@ export default {
             this.currentPage = 1;
             this.$router.push({ name: 'tasks', query: { perPage: this.perPage, page: this.currentPage, } })
 
-        }
-        // getFormattedTime(time) {
-        //     if (time) {
-        //         return format(new Date(time), "M / dd (E)", { locale: ja });
-        //     }
-        // },
+        },
+        getFormattedTime(time) {
+            if (time) {
+                return format(new Date(time), "M / dd (E)", { locale: ja });
+            }
+        },
     },
     beforeRouteUpdate(to, from, next) {
         // UGLY: next()を実行しないとqueryの値が更新されない
