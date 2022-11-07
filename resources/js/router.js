@@ -7,6 +7,10 @@ import TaskEdit from "./views/TaskEdit";
 import TaskDetail from "./views/TaskDetail";
 import TaskList from "./views/TaskList";
 import User from "./views/User";
+import VueRouter from "vue-router";
+
+// QUESTION ここに記述すればapp.jsの以下の記述は削除できる?
+// Vue.use(Router);
 
 export default new Router({
     mode: "history",
