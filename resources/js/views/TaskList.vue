@@ -1,7 +1,5 @@
 <template>
-    <!-- <div class="container content" :style="'min-height: ' + $store.state.rect.contentMinHeight + 'px'"> -->
     <div class="container content">
-        <!-- TODO: フラッシュメッセージを追加する -->
         <div class="heading row mt-4">
             <div class="col-8">
                 <h1>TODO一覧</h1>
@@ -87,7 +85,6 @@ export default {
             tasks: [],
             currentPage: this.currentPage = this.$route.query.page || FIRST_PAGE_NUMBER,
             perPage: this.perPage = this.$route.query.perPage || DEFAULT_PER_PAGE,
-            // QUESTION 初期値は null 0 のどちらが良いのか?
             totalCount: 0,
         };
     },

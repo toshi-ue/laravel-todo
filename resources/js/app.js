@@ -10,6 +10,7 @@ require('./bootstrap');
 
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Toasted from 'vue-toasted';
 
 import router from "./router";
 import store from "./store";
@@ -18,6 +19,7 @@ window.Vue = Vue;
 // QUESTION: ./route 側で設定すればこの記述はいらない?
 // [LaravelにVuexを導入する方法 - ポッポプログラミング](https://poppotennis.com/posts/larave-vuex)
 Vue.use(VueRouter);
+Vue.use(Toasted)
 
 /**
  * The following block of code may be used to automatically register your

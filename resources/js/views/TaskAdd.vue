@@ -54,7 +54,19 @@ export default {
     methods: {
         submit() {
             axios.post(`/api/tasks`, this.task).then((res) => {
-                this.$router.push({ name: "tasks" })
+                this.$router.push({ name: "tasks" });
+
+                this.$toasted.show('タスクを追加しました', {
+                    duration: 2000,
+                    position: 'top-center',
+                    type: 'success',
+                    action: {
+                        text: 'CLOSE',
+                        onClick: function (e, toastObject) {
+                            toastObject.goAway(0)
+                        }
+                    }
+                })
             })
         }
     }
