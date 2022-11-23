@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-3">
     <div class="container">
         @guest
         <a class="navbar-brand" href="{{ url('/') }}">
