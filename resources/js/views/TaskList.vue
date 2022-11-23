@@ -109,6 +109,8 @@ export default {
         paginateClickCallback: function (pageNum) {
             this.currentPage = pageNum;
             this.$router.push({ name: 'tasks', query: { perPage: this.perPage, page: this.currentPage, } })
+            console.log('aaa')
+            this.$scrollTo('#app', 1000, { offset: -60 });
         },
         changePerPage(e) {
             // QUESTION 不正な値の挿入は気にしなくて良い?

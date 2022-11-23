@@ -10,6 +10,7 @@ require('./bootstrap');
 
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueScrollTo from 'vue-scrollto'
 import Toasted from 'vue-toasted';
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -30,6 +31,7 @@ window.Vue = Vue;
 // QUESTION: ./route 側で設定すればこの記述はいらない?
 // [LaravelにVuexを導入する方法 - ポッポプログラミング](https://poppotennis.com/posts/larave-vuex)
 Vue.use(VueRouter);
+Vue.use(VueScrollTo);
 Vue.use(Toasted)
 
 /**
