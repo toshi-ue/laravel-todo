@@ -1,69 +1,72 @@
 <template>
     <div class="container content">
-        <div class="heading row mt-4">
-            <div class="col-8">
-                <h1>TODO一覧</h1>
-            </div>
-            <div class="col d-flex align-items-center justify-content-end">
-                <RouterLink v-bind:to="{ name: 'task.new' }">
-                    <button class="btn btn-success">追加</button>
-                </RouterLink>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-12 text-right">
-                <label for="display-count">表示件数</label>
-                <select name="per-page" id="display-count" v-model="perPage" v-bind:checked="perPage"
-                    v-on:change="changePerPage">
-                    <option value="1">1</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-
-                </select>
+            <div class="col-sm-12 col-md-8 offset-md-2">
+                <div class="heading row">
+                    <div class="col-8">
+                        <h1>TODO一覧</h1>
+                    </div>
+                    <div class="col-4 d-flex align-items-center justify-content-end">
+                        <RouterLink v-bind:to="{ name: 'task.new' }">
+                            <button class="btn btn-outline-secondary">追加</button>
+                        </RouterLink>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <label for="display-count">表示件数</label>
+                        <select name="per-page" id="display-count" v-model="perPage" v-bind:checked="perPage"
+                            v-on:change="changePerPage">
+                            <option value="1">1</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th class="responsive-by-char-count">
+                                概要<br />
+                                <span style="font-size: x-small">(登録日)</span>
+                            </th>
+                            <th>進捗</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="task in tasks" :key="task.id">
+                            <td scope="row">{{ task.id }}</td>
+                            <td class="responsive-by-char-count">{{ task.description }}<br />
+                                <div class="text-right"><span style="font-size: x-small">{{
+                                        getFormattedTime(task.created_at)
+                                }}</span></div>
+                            </td>
+                            <td>
+                                <span class="badge badge-light" v-if="task.done === 0">未完了</span>
+                                <span class="badge badge-success" v-else>完了</span>
+                            </td>
+                            <td>
+                                <router-link v-bind:to="{ name: 'task.edit', params: { taskId: task.id } }">
+                                    <button class="btn btn-outline-secondary">
+                                        <font-awesome-icon icon="fa-solid fa-pen" />
+                                    </button>
+                                </router-link>
+                                <button class="btn btn-outline-secondary" v-on:click="deleteTask(task.id)">
+                                    <font-awesome-icon icon="fa-solid fa-trash" />
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div v-if="getPageCount > 1">
+                    <VuejsPaginate v-model="currentPage" :pageCount="getPageCount" :prevText="'<'" :nextText="'>'"
+                        :clickHandler="paginateClickCallback" :containerClass="'pagination'" :first-last-button="true"
+                        :first-button-text="'<<'" :last-button-text="'>>'" :pageClass="'page-item'">
+                    </VuejsPaginate>
+                </div>
             </div>
-        </div>
-        <table class="table table-hover">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">概要</th>
-                    <th scope="col">進捗</th>
-                    <th scope="col">登録日</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="task in tasks" :key="task.id">
-                    <th scope="row">{{ task.id }}</th>
-                    <td>{{ task.description }}</td>
-                    <td>
-                        <span class="badge badge-light" v-if="task.done === 0">未完了</span>
-                        <span class="badge badge-success" v-else>完了</span>
-                    </td>
-                    <td>{{ getFormattedTime(task.created_at) }}</td>
-                    <td>
-                        <router-link v-bind:to="{ name: 'task.show', params: { taskId: task.id.toString() } }">
-                            <button class="btn btn-primary">確認</button>
-                        </router-link>
-                    </td>
-                    <td>
-                        <router-link v-bind:to="{ name: 'task.edit', params: { taskId: task.id } }">
-                            <button class="btn btn-success">変更</button>
-                        </router-link>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" v-on:click="deleteTask(task.id)">削除</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div v-if="getPageCount > 1">
-            <VuejsPaginate v-model="currentPage" :pageCount="getPageCount" :prevText="'<'" :nextText="'>'"
-                :clickHandler="paginateClickCallback" :containerClass="'pagination'" :first-last-button="true"
-                :first-button-text="'<<'" :last-button-text="'>>'" :pageClass="'page-item'">
-            </VuejsPaginate>
         </div>
     </div>
 </template>
@@ -177,5 +180,9 @@ export default {
 
 .pagination li+li {
     border-left: none;
+}
+
+.responsive-by-char-count {
+    min-width: 8rem;
 }
 </style>
