@@ -1,13 +1,27 @@
-# TODOアプリ
-復讐のためのTODOアプリ
+## TODOアプリ
+復習のためのTODOアプリ
 
-
-# PHP, Laravel Version
-|  | バージョン |
-| -------- | -------- |
+## 動作環境
+| - | バージョン |
+| :-------- | :--------: |
 | PHP     | 8.0.23     |
 | Laravel     | 6.20.44     |
 
+<!-- 
+以下を参考にした。
+[Vue.js + LaravelでシンプルなSPA構築チュートリアル：概要編 - Qiita](https://qiita.com/minato-naka/items/2d2def4d66ec88dc3ca2) -->
+
+## Branchごとの概要
+1. Laravelの環境構築
+    - [toshi-ue/laravel-todo at 01-setup](https://github.com/toshi-ue/laravel-todo/tree/01-setup)
+2. データベースの設定、モデルの作成、初期データの投入
+    - [Commits · toshi-ue/laravel-todo](https://github.com/toshi-ue/laravel-todo/commits/02-create-database)
+3. タイムゾーン、デフォルト言語、localeファイルの設定
+    - [Commits · toshi-ue/laravel-todo](https://github.com/toshi-ue/laravel-todo/commits/03-localize-japan)
+4. crudの実装(Restful)、フォーム、バリデーション
+    - [Commits · toshi-ue/laravel-todo](https://github.com/toshi-ue/laravel-todo/commits/04-restful-crud)
+5. Laravel MixによるVue.jsとの連携
+    - [Commits · toshi-ue/laravel-todo](https://github.com/toshi-ue/laravel-todo/commits/05-work-with-vuejs)
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 

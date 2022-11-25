@@ -8,8 +8,8 @@
         <h1>TODOリスト</h1>
     </div>
     <div class="contents">
-        @include('layouts.flash_message')
-        <form action="{{ route('task.store') }}" method="post">
+        {{-- @include('layouts.flash_message') --}}
+        {{-- <form action="{{ route('task.store') }}" method="post">
             @csrf
             <table>
                 <tr>
@@ -20,9 +20,9 @@
                     <td><input type="submit" value="登録"></td>
                 </tr>
             </table>
-        </form>
+        </form> --}}
         {{-- TODO: done(true, false のよこならび表示) --}}
-        table表示
+        {{-- table表示
         <table>
             <tr>
                 <th>id</th>
@@ -33,7 +33,7 @@
                 <th>編集</th>
             </tr>
             @each('components.task', $tasks, 'task')
-        </table>
+        </table> --}}
     </div>
     <div class="footer">
         @include('layouts.footer')

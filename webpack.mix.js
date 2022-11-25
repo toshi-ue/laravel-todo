@@ -12,4 +12,18 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .browserSync({
+        files: [
+            "resources/**/*",
+            "config/**/*",
+            "routes/**/*",
+            "app/**/*",
+            "public/**/*"
+        ],
+        proxy: {
+            target: "http://127.0.0.1:8000",
+        },
+        open: false,　//起動時にブラウザを開かない
+        reloadOnRestart: true　//起動時にブラウザにリロード命令おくる
+    });

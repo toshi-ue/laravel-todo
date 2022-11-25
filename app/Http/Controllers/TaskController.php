@@ -15,9 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-        // $param = ['tasks' => $tasks,];
-        return view('task.index',  compact('tasks'));
+        // TODO: ソート(並べ替え)機能を追加する
+        // return Task::orderBy('created_at', 'desc')->paginate(5);
+        return Task::paginate(10);
     }
 
     /**
@@ -36,10 +36,14 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TaskRequest $request)
+    // public function store(TaskRequest $request)
+    // {
+    //     $task = Task::create($request->all());
+    //     return redirect()->route('task.index')->with('success', 'TODOを登録しました');
+    // }
+    public function store(Request $request)
     {
-        $task = Task::create($request->all());
-        return redirect()->route('task.index')->with('success', 'TODOを登録しました');
+        return Task::create($request->all());
     }
 
     /**
@@ -48,10 +52,15 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    // public function show($id)
+    // {
+    //     return Task::find($id);
+    //     // $task = Task::find($id);
+    //     // return view('task.show', compact('task'));
+    // }
+    public function show(Task $task)
     {
-        $task = Task::find($id);
-        return view('task.show', compact('task'));
+        return $task;
     }
 
     /**
@@ -73,12 +82,17 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskRequest $request, $id)
+    // public function update(TaskRequest $request, $id)
+    // {
+    //     $task = Task::find($id);
+    //     $form = $request->all();
+    //     $task->fill($form)->save();
+    //     return back()->with('success', '更新しました');
+    // }
+    public function update(Request $request, Task $task)
     {
-        $task = Task::find($id);
-        $form = $request->all();
-        $task->fill($form)->save();
-        return back()->with('success', '更新しました');
+        $task->update($request->all());
+        return $task;
     }
 
     /**
@@ -87,9 +101,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     Task::where('id', $id)->delete();
+    //     return redirect()->route('task.index')->with('success', 'TODOを削除しました');
+    // }
+    public function destroy(Task $task)
     {
-        Task::where('id', $id)->delete();
-        return redirect()->route('task.index')->with('success', 'TODOを削除しました');
+        $task->delete();
+        return $task;
     }
 }
