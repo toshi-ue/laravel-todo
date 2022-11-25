@@ -1,8 +1,6 @@
 <template>
     <!-- <div class="container content" :style="'min-height: ' + $store.state.rect.contentMinHeight + 'px'"> -->
     <div class="container content mt-4">
-        <!-- TODO: エラ〜メッセージの多言語化 - front -->
-        <!-- TODO: date-fns, vee-validateをグローバル化する -->
         <div class="row justify-content-center">
             <div class="col-sm-6">
                 <div class="card">
@@ -15,7 +13,6 @@
                                     <input type="text" class="col-9 form-control-plaintext" readonly id="id"
                                         v-model="task.id" />
                                 </div>
-                                <!-- TODO: 文字数カウントを追加 -->
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-3 col-form-label">概要</label>
                                     <ValidationProvider rules="required|min:2|max:25" v-slot="{ errors }">
@@ -96,8 +93,7 @@ export default {
             });
         },
         submit() {
-            // TODO: ボタンを連打できないようにする
-            // TODO: サーバー側でのエラー時の対応
+            // TODO: ボタンを連打できないようにする、サーバー側でのエラー時の対応
             // [【VeeValidate】バリデーションメッセージを削除する方法の紹介 – fumidzuki](https://fumidzuki.com/knowledge/2004/)
             axios.put("/api/tasks/" + this.taskId, this.task).then((res) => {
                 this.$router.push({ name: "tasks" });

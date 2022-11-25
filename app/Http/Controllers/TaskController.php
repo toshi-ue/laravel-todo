@@ -15,8 +15,6 @@ class TaskController extends Controller
      */
     public function index()
     {
-        // TODO: ソート(並べ替え)機能を追加する
-        // return Task::orderBy('created_at', 'desc')->paginate(5);
         return Task::paginate(10);
     }
 
