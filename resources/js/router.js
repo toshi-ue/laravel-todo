@@ -35,6 +35,11 @@ export default new Router({
             component: TaskList
         },
         {
+            path: '/tasks/create',
+            name: 'task.new',
+            component: TaskAdd
+        },
+        {
             path: '/tasks/:taskId',
             name: 'task.show',
             component: TaskDetail,
@@ -45,11 +50,6 @@ export default new Router({
             name: 'task.edit',
             component: TaskEdit,
             props: true
-        },
-        {
-            path: '/tasks/create',
-            name: 'task.new',
-            component: TaskAdd
         },
         {
             path: '/user',
