@@ -38,8 +38,19 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            // [Laravelサイト内で認証済みユーザのみにAPIを提供する方法 – helog](https://helog.jp/laravel/api-session-auth/)
+            // [Laravel+PostgreSQL+Vue.jsでSPA開発【チュートリアル】 - OPTiM TECH BLOG](https://tech-blog.optim.co.jp/entry/2019/08/13/173000)
+            // [[Laravel]ミドルウェアを整理してLaravelを軽くする - Qiita](https://qiita.com/kurikazu/items/0c57f050f5dfef02b23e)
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            // \App\Http\Middleware\VerifyCsrfToken::class,
+            // 以下のコード 'throttle:60,1'の順番が大事
+            //[（sanctum不使用）Laravel+VueでSession認証を作る時はKernel.phpの順番に注意 - TMのらぼ](https://tmlabo.hatenablog.com/entry/2021/11/03/225514)
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
         ],
     ];
 
@@ -61,6 +72,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 'auth.api' => \App\Http\Middleware\AuthApi::class,
     ];
 
     /**

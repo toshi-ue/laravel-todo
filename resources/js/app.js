@@ -1,23 +1,38 @@
-import VueI18n from "vue-i18n";
-import VueRouter from "vue-router";
-import FooterComponent from "./components/FooterComponent";
-import HeaderComponent from "./components/HeaderComponent";
-import Login from './components/Login'
-import TaskEditComponent from "./components/TaskEditComponent";
-import TaskCreateComponent from "./components/TaskCreateComponent";
-import TaskListComponent from "./components/TaskListComponent";
-import TaskShowComponent from "./components/TaskShowComponent";
-
-import store from "./store/index";
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
+require('./bootstrap');
 
-window.Vue = require("vue");
+// window.Vue = require('vue');
+
+import Vue from "vue";
+import VueRouter from "vue-router";
+import VueScrollTo from 'vue-scrollto'
+import Toasted from 'vue-toasted';
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faPen, faTrash)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+import router from "./router";
+import store from "./store";
+
+window.Vue = Vue;
+// QUESTION: ./route 側で設定すればこの記述はいらない?
+// [LaravelにVuexを導入する方法 - ポッポプログラミング](https://poppotennis.com/posts/larave-vuex)
+Vue.use(VueRouter);
+Vue.use(VueScrollTo);
+Vue.use(Toasted)
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,54 +46,6 @@ window.Vue = require("vue");
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component("HeaderComponent", HeaderComponent);
-Vue.component("footer-component", FooterComponent);
-
-// FIXME: VueI18nを追加するとエラーが発生する、いろんな箇所に影響が出る
-// Vue.use(VueI18n, VueRouter);
-Vue.use(VueRouter);
-
-const i18n = new VueI18n({
-    locale: "ja",
-    // locale: "en",
-    fallbackLocale: "en",
-    messages: {
-        en: require("../lang/en.json"),
-        ja: require("../lang/ja.json"),
-    },
-});
-
-const router = new VueRouter({
-    mode: "history",
-    routes: [
-        {
-            path: "/tasks",
-            name: "task.list",
-            component: TaskListComponent,
-        },
-        {
-            path: "/tasks/:taskId",
-            name: "task.show",
-            component: TaskShowComponent,
-            props: true,
-        },
-        {
-            path: "/tasks/create",
-            name: "task.create",
-            component: TaskCreateComponent,
-        },
-        {
-            path: "/tasks/:taskId/edit",
-            name: "task.edit",
-            component: TaskEditComponent,
-            props: true,
-        },
-        {
-            path: "/login",
-            component: Login,
-        },
-    ],
-});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -86,8 +53,7 @@ const router = new VueRouter({
  */
 
 const app = new Vue({
-    el: "#app",
-    i18n,
+    el: '#app',
     router,
-    store,
+    store
 });

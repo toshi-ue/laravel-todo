@@ -10,18 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::resource('task', 'TaskController');
-// Route::get('/{any}', function () {
-//     return view('task.index');
-// })->where('any', '.*');
-// Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
 
 Route::get('/{any}', function () {
-    return view('task.index');
-})->where('any', '.*');
+    return view('loggedin.index');
+})->where('any', '.*')->middleware('auth');
+Route::resource('task', 'TaskController');

@@ -12,18 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .browserSync({
-        files: [
-            "resources/**/*",
-            "config/**/*",
-            "routes/**/*",
-            "app/**/*",
-            "public/**/*"
-        ],
-        proxy: {
-            target: "http://127.0.0.1:8000",
-        },
-        open: false,　//起動時にブラウザを開かない
-        reloadOnRestart: true　//起動時にブラウザにリロード命令おくる
-    });
+    .sass('resources/sass/app.scss', 'public/css');
+
+// ログイン直後のurlがhttp://localhost:8000/js/popper.js.mapになり、タスク一覧画面が表示されない問題の対策コード
+// [Laravel5 Safariで閲覧！なぜかpopper.js 404(Not Found) | 株式会社Cruw（クルー）](https://cruw.co.jp/blog/safari-popper-404/)
+mix.sourceMaps().js('node_modules/popper.js/dist/popper.js', 'public/js').sourceMaps();
