@@ -6,13 +6,13 @@
                     <div class="col-8">
                         <h1>TODO一覧</h1>
                     </div>
-                    <div class="col-4 d-flex align-items-center justify-content-end">
+                    <div class="col-4 d-flex align-items-center justify-content-end" v-if="tasks.length">
                         <RouterLink v-bind:to="{ name: 'task.new' }">
                             <button class="btn btn-outline-secondary">追加</button>
                         </RouterLink>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" v-if="tasks.length">
                     <div class="col-12 text-right">
                         <label for="display-count">表示件数</label>
                         <select name="per-page" id="display-count" v-model="perPage" v-bind:checked="perPage"
@@ -23,7 +23,17 @@
                         </select>
                     </div>
                 </div>
-                <table class="table table-hover">
+                <div class="d-flex align-items-center justify-content-center no-data" v-if="!tasks.length">
+                    <div class="text-center">
+                        <p class="text-black-50">まだタスクはありません</p>
+                        <p>
+                            <RouterLink v-bind:to="{ name: 'task.new' }">
+                                <button class="btn btn-outline-secondary">追加</button>
+                            </RouterLink>
+                        </p>
+                    </div>
+                </div>
+                <table class="table table-hover" v-if="tasks.length">
                     <thead class="thead-light">
                         <tr>
                             <th>#</th>
@@ -40,7 +50,7 @@
                             <td scope="row">{{ task.id }}</td>
                             <td class="responsive-by-char-count">{{ task.description }}<br />
                                 <div class="text-right"><span style="font-size: x-small">{{
-                                getFormattedTime(task.created_at)
+                                        getFormattedTime(task.created_at)
                                 }}</span></div>
                             </td>
                             <td>
@@ -99,6 +109,8 @@ export default {
                 this.currentPage = result.current_page;
                 this.perPage = result.per_page;
                 this.totalCount = result.total;
+            }).catch((error) => {
+                console.log(error)
             });
         },
         deleteTask(id) {
@@ -109,12 +121,9 @@ export default {
         paginateClickCallback: function (pageNum) {
             this.currentPage = pageNum;
             this.$router.push({ name: 'tasks', query: { perPage: this.perPage, page: this.currentPage, } })
-            console.log('aaa')
             this.$scrollTo('#app', 1000, { offset: -60 });
         },
         changePerPage(e) {
-            // QUESTION 不正な値の挿入は気にしなくて良い?
-            //  [Laravel5のページング機能に表示件数の可変を実装する方法 - Qiita](https://qiita.com/qwe001/items/a82054b45acaca164d7c)
             const changedPerPage = e.target.value;
             if (["1", "10", "20"].includes(changedPerPage)) {
                 this.perPage = changedPerPage;
@@ -179,12 +188,15 @@ export default {
     cursor: not-allowed;
 }
 
-
 .pagination li+li {
     border-left: none;
 }
 
 .responsive-by-char-count {
     min-width: 8rem;
+}
+
+.no-data {
+    height: calc(100vh - 4rem - 3rem)
 }
 </style>

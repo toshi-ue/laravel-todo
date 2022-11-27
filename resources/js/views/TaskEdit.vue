@@ -9,46 +9,58 @@
                         <ValidationObserver ref="observer" v-slot="{ invalid }">
                             <form v-on:submit.prevent="submit">
                                 <div class="form-group row">
-                                    <label for="id" class="col-3 col-form-label">ID</label>
-                                    <input type="text" class="col-9 form-control-plaintext" readonly id="id"
-                                        v-model="task.id" />
+                                    <div class="row col-10 offset-1">
+                                        <label for="id" class="col-3 col-form-label">ID</label>
+                                        <input type="text" class="col-9 form-control-plaintext" readonly id="id"
+                                            v-model="task.id" />
+                                    </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-3 col-form-label">概要</label>
-                                    <ValidationProvider rules="required|min:2|max:25" v-slot="{ errors }">
-                                        <textarea class="col-sm-9 form-control" id="description"
-                                            v-model="task.description" placeholder="概要" rows="2" autofocus />
-                                        <span class="text-danger">{{ errors[0] }}</span>
-                                    </ValidationProvider>
+                                    <div class="row col-10 offset-1">
+                                        <label for="description" class="col-12 col-form-label">概要</label>
+                                        <div class="col-12">
+                                            <ValidationProvider rules="required|min:2|max:25" v-slot="{ errors }">
+                                                <textarea class="form-control" id="description"
+                                                    v-model="task.description" placeholder="概要" rows="2" autofocus />
+                                                <span class="text-danger">{{ errors[0] }}</span>
+                                            </ValidationProvider>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="done" class="col-sm-3 col-form-label">進捗</label>
-                                    <ValidationProvider rules="required" v-slot="{ errors }">
-                                        <select name="done" id="done" class="col-sm-9 form-control" v-model="task.done">
-                                            <option value="0" v-bind:selected="task.done">
-                                                未完了
-                                            </option>
-                                            <option value="1" v-bind:selected="task.done">
-                                                完了
-                                            </option>
-                                        </select>
-                                        <span>{{ errors[0] }}</span>
-                                    </ValidationProvider>
+                                    <div class="row col-10 offset-1">
+                                        <label for="done" class="col-12 col-form-label">進捗</label>
+                                        <div class="col-12">
+                                            <ValidationProvider rules="required" v-slot="{ errors }">
+                                                <select name="done" id="done" class="col-12 form-control"
+                                                    v-model="task.done">
+                                                    <option value="0" v-bind:selected="task.done">
+                                                        未完了
+                                                    </option>
+                                                    <option value="1" v-bind:selected="task.done">
+                                                        完了
+                                                    </option>
+                                                </select>
+                                                <span>{{ errors[0] }}</span>
+                                            </ValidationProvider>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="created_at" class="col-sm-3 col-form-label">登録日</label>
-                                    <p>{{ getFormattedTime(task.created_at) }}</p>
-                                    <!-- <input
-              type="text"
-              class="col-sm-9 form-control-plaintext"
-              id="created_at"
-              readonly
-              v-model="task.created_at"
-            /> -->
+                                    <div class="row col-10 offset-1">
+                                        <div class="col-4 col-md-4 col-xl-3"><label for="created_at"
+                                                class="col-form-label">登録日</label>
+                                        </div>
+                                        <div class="col-8 col-md-8 col-xl-9 d-flex align-items-center pl-0">
+                                            {{ getFormattedTime(task.created_at) }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary" :disabled="invalid">
-                                    更新
-                                </button>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary" :disabled="invalid">
+                                        更新
+                                    </button>
+                                </div>
                             </form>
                         </ValidationObserver>
                     </div>
@@ -60,10 +72,12 @@
 
 <script>
 import { format } from "date-fns";
-import { ja } from "date-fns/locale";
-import { ValidationObserver, ValidationProvider, extend } from "vee-validate";
+import * as DateFnsLocale from "date-fns/locale";
+import { ValidationObserver, ValidationProvider, extend, localize } from "vee-validate";
+import ja from "vee-validate/dist/locale/ja.json";
 import { max, min, required } from "vee-validate/dist/rules";
 
+localize('ja', ja);
 extend("max", max);
 extend("min", min);
 extend("required", required);
@@ -84,7 +98,7 @@ export default {
     methods: {
         getFormattedTime(time) {
             if (time) {
-                return format(new Date(time), "M / dd (E)", { locale: ja });
+                return format(new Date(time), "M / dd (E)", { locale: DateFnsLocale.ja });
             }
         },
         getTask() {
@@ -93,10 +107,34 @@ export default {
             });
         },
         submit() {
-            // TODO: ボタンを連打できないようにする、サーバー側でのエラー時の対応
-            // [【VeeValidate】バリデーションメッセージを削除する方法の紹介 – fumidzuki](https://fumidzuki.com/knowledge/2004/)
+            this.$toasted.clear();
+
             axios.put("/api/tasks/" + this.taskId, this.task).then((res) => {
                 this.$router.push({ name: "tasks" });
+
+                this.$toasted.show('タスクを更新しました', {
+                    duration: 2000,
+                    position: 'top-center',
+                    type: 'success',
+                    action: {
+                        text: 'CLOSE',
+                        onClick: function (e, toastObject) {
+                            toastObject.goAway(0)
+                        }
+                    }
+                })
+            }).catch((error) => {
+                this.$toasted.show('エラーが発生しました。しばらく経ってから再度お試しください', {
+                    duration: -1,
+                    position: 'bottom-center',
+                    type: 'error',
+                    action: {
+                        text: 'CLOSE',
+                        onClick: function (e, toastObject) {
+                            toastObject.goAway(0)
+                        }
+                    }
+                })
             });
         },
     },

@@ -9,7 +9,7 @@
                             <form v-on:submit.prevent="submit">
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-3 col-md-12 col-form-label">概要</label>
-                                    <div class="col-sm-9  col-md-12">
+                                    <div class="col-sm-9 col-md-12">
                                         <ValidationProvider name="概要" rules="required|min:3|max:20" v-slot="{ errors }">
                                             <textarea class="form-control" id="description" v-model="task.description"
                                                 placeholder="概要" rows="2" autofocus />
@@ -36,7 +36,6 @@ import ja from "vee-validate/dist/locale/ja.json";
 import { max, min, required } from "vee-validate/dist/rules";
 
 localize('ja', ja)
-
 extend("max", max);
 extend("min", min);
 extend("required", required);
