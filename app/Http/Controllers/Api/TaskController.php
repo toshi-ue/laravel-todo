@@ -48,10 +48,6 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        \Log::debug(Auth::user());
-        // FIXME: ユーザー情報を取得するためにユーザーidを取得したいが以下のエラーが発生して取得できない
-        // [2022-10-27 16:58:15] local.ERROR: Class "App\Http\Controllers\Api\Auth" not found {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0)
-        \Log::debug(Auth::check());
         return Task::find($id);
     }
 
