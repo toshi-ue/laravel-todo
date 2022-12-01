@@ -53,6 +53,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
+                                {{-- FIXME: 登録後の遷移画面がおかしいjsonが表示される --}}
                                 <button type="submit" class="btn btn-primary">
                                     登録する
                                 </button>

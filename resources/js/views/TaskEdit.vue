@@ -19,7 +19,8 @@
                                     <div class="row col-10 offset-1">
                                         <label for="description" class="col-12 col-form-label">概要</label>
                                         <div class="col-12">
-                                            <ValidationProvider rules="required|min:2|max:25" v-slot="{ errors }">
+                                            <ValidationProvider name="概要" rules="required|min:3|max:20"
+                                                v-slot="{ errors }">
                                                 <textarea class="form-control" id="description"
                                                     v-model="task.description" placeholder="概要" rows="2" autofocus />
                                                 <span class="text-danger">{{ errors[0] }}</span>
