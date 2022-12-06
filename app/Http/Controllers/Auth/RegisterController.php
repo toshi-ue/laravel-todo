@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,8 +72,11 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function registered(Request $request, $user)
-    {
-        return $user;
-    }
+    // register実行後の動作を変えるための記述
+    //  [Laravel – ユーザー登録処理の流れ – TauStation](http://taustation.com/laravel-inside-user-registration/)
+    //  [Laravel5.4、ユーザー登録完了処理の変更](https://kore1server.com/358/Laravel5.4%E3%80%81%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%99%BB%E9%8C%B2%E5%AE%8C%E4%BA%86%E5%87%A6%E7%90%86%E3%81%AE%E5%A4%89%E6%9B%B4)
+    // protected function registered(Request $request, $user)
+    // {
+    //     return $user;
+    // }
 }

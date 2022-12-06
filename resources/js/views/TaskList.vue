@@ -115,6 +115,17 @@ export default {
         },
         deleteTask(id) {
             axios.delete("/api/tasks/" + id).then((res) => {
+                this.$toasted.show('タスクを削除しました', {
+                    duration: 2000,
+                    position: 'top-center',
+                    type: 'success',
+                    action: {
+                        text: 'CLOSE',
+                        onClick: function (e, toastObject) {
+                            toastObject.goAway(0)
+                        }
+                    }
+                })
                 this.getTasks();
             });
         },
