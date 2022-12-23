@@ -13,6 +13,8 @@
     "ihunte.laravel-blade-wrapper",
     "damianbal.vs-phpclassgen",
     "xdebug.php-debug",
-    "sdras.vue-vscode-snippets"
+    "sdras.vue-vscode-snippets",
+    "austenc.laravel-blade-spacer",
+    "valeryanm.vscode-phpsab"
   ]
 }
