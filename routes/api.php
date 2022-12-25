@@ -18,4 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('tasks', 'Api\TaskController')->only(['index', 'store', 'show', 'edit', 'update', 'destroy']);
+Route::resource('tasks', 'Api\TaskController')->only(['index', 'store', 'show', 'edit', 'update', 'destroy'])->middleware('auth');

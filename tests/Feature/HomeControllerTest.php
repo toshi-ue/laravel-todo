@@ -32,4 +32,12 @@ class HomeControllerTest extends TestCase
 
         $response->assertStatus(302);
     }
+
+    public function test_success_redirect_tasks_when_user_login()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs(User::find($user->id))->get(route('api/tasks'));
+
+        $response->assertStatus(200);
+    }
 }
