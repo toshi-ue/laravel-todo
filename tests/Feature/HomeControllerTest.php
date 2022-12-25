@@ -3,11 +3,14 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
+use App\User;
 
 class HomeControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
   /**
    * A basic feature test example.
    *
@@ -23,7 +26,7 @@ class HomeControllerTest extends TestCase
             ->assertSee('新規登録');
     }
 
-    public function test_fails_users_home_when_not_login()
+    public function test_fail_redirect_tasks_when_user_not_login()
     {
         $response = $this->get('/tasks');
 
