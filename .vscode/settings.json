@@ -1,11 +1,20 @@
 {
-    "emmet.triggerExpansionOnTab": true, // enable tab to expanse emmet tags
-    "blade.format.enable": true, // if you would like to enable blade format
-    "[blade]": {
-        "editor.autoClosingBrackets": "always"
-    },
-    "emmet.includeLanguages": {
-        "blade": "html"
-    },
-    "dotenv.enableAutocloaking": false,
+  "emmet.triggerExpansionOnTab": true, // enable tab to expanse emmet tags
+  "blade.format.enable": true, // if you would like to enable blade format
+  "[blade]": {
+    "editor.autoClosingBrackets": "always"
+  },
+  "dotenv.enableAutocloaking": false,
+  "emmet.includeLanguages": {
+    "blade": "html"
+  },
+  // https://laravuejs.dev/tutorials/laravel-s1/laravel-115/
+  "editor.formatOnSave": true,
+  "phpsab.autoRulesetSearch": false,
+  // 変数 ${workspaceFolder}が使えない
+  //    https: //s4-ba.hatenablog.jp/entry/2019/10/14/213206
+  "phpsab.standard": "./phpcs.xml",
+  "phpsab.executablePathCS": "./vendor/bin/phpcs",
+  "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
+  "phpsab.snifferMode": "onSave"
 }
